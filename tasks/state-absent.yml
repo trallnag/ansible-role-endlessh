@@ -1,0 +1,45 @@
+- name: Stop and disable the systemd endlessh service
+  systemd:
+    name: endlessh
+    state: stopped
+    enabled: false
+  become: true
+
+- name: Ensure endlessh is absent
+  apt:
+    name: endlessh
+    state: absent
+  become: true
+
+- name: Ensure `/etc/endlessh/` is absent
+  file:
+    state: absent
+    path: /etc/endlessh/
+  become: true
+
+- name: Ensure that `/etc/systemd/system/endlessh.service` is absent
+  file:
+    state: absent
+    path: /etc/systemd/system/endlessh.service
+  register: task_remove_etc
+  become: true
+
+- name: Ensure that `/usr/lib/systemd/system/endlessh.service` is absent
+  file:
+    state: absent
+    path: /usr/lib/systemd/system/endlessh.service
+  register: task_remove_lib
+  become: true
+
+- name: Reload daemon
+  systemd:
+    daemon_reload: true
+  when: task_remove_etc.changed or task_remove_lib.changed
+  register: task_reload
+  become: true
+
+- name: Reset failed
+  command:
+    cmd: systemctl reset-failed
+  when: task_remove_etc.changed or task_remove_lib.changed
+  become: true

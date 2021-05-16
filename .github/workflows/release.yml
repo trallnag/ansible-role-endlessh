@@ -1,0 +1,42 @@
+name: Create GitHub Release
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  gitub-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Extract release notes
+        id: extract-release-notes
+        uses: ffurrer2/extract-release-notes@v1
+
+      - name: Retrieve release version
+        run: |
+          version=${GITHUB_REF#refs/*/}
+          echo "RELEASE_VERSION=$(echo $version)" >> $GITHUB_ENV
+
+      - name: Retrieve date
+        run: |
+          x=$(date +'%Y-%m-%d')
+          echo "NOW=$x" >> $GITHUB_ENV
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "[${{ env.RELEASE_VERSION }}] ${{ env.NOW }}"
+          body: ${{ steps.extract-release-notes.outputs.release_notes }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ansible-galaxy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: robertdebock/galaxy-action@1.1.1
+        with:
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
