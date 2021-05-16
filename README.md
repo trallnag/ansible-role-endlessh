@@ -1,16 +1,23 @@
 # Endlessh
 
 The SSH tar pit Endlessh. This role install the APT package and configures
-everything so Endlessh can listen on port 22. Can be set to `present` and
-`absent` and therefore supports deinstallation. It also includes a test
-to make sure that the port is open and endlessh is listening on it.
+everything so Endlessh can listen on port 22. Not made to be highly customizable.
 
 Available on [Ansible Galaxy](https://galaxy.ansible.com/trallnag/endlessh).
 
+## Features
+
+* Can be set to `present` and `absent` and therefore supports deinstallation
+  including removal of unused systemd unit files.
+* Includes a test to make sure that the port is open and endlessh is listening
+  on it.
+* By default Endlessh cannot listen on port 22. This role does the required
+  modifications to enable it. Port 22 is also the default.
+
 ## Requirements
 
-* Ubuntu only.
-* Systemd must be used. Only tested on "vanilla" Ubuntu server.
+* Ubuntu only. Only tested on "vanilla" Ubuntu server starting with 20.04.
+* Systemd should be more or less vanilla. Systemd must be used. 
 
 ## Role Variables
 
