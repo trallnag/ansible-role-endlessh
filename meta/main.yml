@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: endlessh
   author: Tim Schwenke
-  description: Setup endlessh on port 22
+  description: Setup Endlessh
 
   license: MIT
 
