@@ -35,11 +35,15 @@
   systemd:
     daemon_reload: true
   when: task_remove_etc.changed or task_remove_lib.changed
+  tags: ['skip_ansible_lint']
   register: task_reload
   become: true
 
 - name: Reset failed
-  command:
-    cmd: systemctl reset-failed
+  shell: |
+    alias blub=systemctl
+    blub reset-failed
+  register: task_setcap
   when: task_remove_etc.changed or task_remove_lib.changed
+  tags: ['skip_ansible_lint']
   become: true

@@ -13,6 +13,8 @@
 
 - name: Allow endlessh to bind to port 22
   shell: |
+    set -o pipefail
+
     file=/usr/bin/endlessh
 
     if setcap -v 'cap_net_bind_service=+ep' $file | grep -q differs
@@ -28,6 +30,8 @@
     fi
 
     setcap -v 'cap_net_bind_service=+ep' $file
+  args:
+    executable: /bin/bash
   register: task_setcap
   changed_when: "'status=changed' in task_setcap.stdout"
   failed_when: "'status=failed' in task_setcap.stdout"
@@ -61,6 +65,7 @@
   systemd:
     daemon_reload: true
   when: copy_service.changed or task_setcap.changed
+  tags: ['skip_ansible_lint']
   become: true
 
 - name: Restart systemd endlessh service
@@ -68,15 +73,19 @@
     name: endlessh
     state: restarted
   when: copy_config.changed or copy_service.changed or task_setcap.changed
+  tags: ['skip_ansible_lint']
   become: true
 
 - name: Test that port is open and used by endlessh
   shell: |
+    set -o pipefail
     ss -tulpn | grep :{{ listen_port }}
     if ! ss -tulpn | grep :{{ listen_port }} | grep -q endlessh
     then
       echo status=failed
     fi
+  args:
+    executable: /bin/bash
   register: task_setcap
   changed_when: "'status=changed' in task_setcap.stdout"
   failed_when: "'status=failed' in task_setcap.stdout"

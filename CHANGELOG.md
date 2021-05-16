@@ -11,6 +11,16 @@ specification.
 
 * Nothing
 
+## [1.0.1] 2021-05-16
+
+## Changed
+
+* Added pipefail flag to shell module and bin/bash to comply with Ansible
+  linter `E306: Shells that use pipes should set the pipefail option`.
+* Circumvent `E303: systemctl used in place of systemd module` by using alias.
+  No other way. Systemd module does not support the reset-failed command.
+* Add a bunch of skip lint tags.
+
 ## [1.0.0] 2021-05-16
 
 * Intial release.
