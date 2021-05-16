@@ -11,6 +11,12 @@ specification.
 
 * Nothing
 
+## [1.1.0] 2021-05-17
+
+## Added
+
+* Removal of init.d file if state is set to absent.
+
 ## [1.0.3] 2021-05-16
 
 ## Fixed

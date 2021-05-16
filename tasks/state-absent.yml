@@ -5,18 +5,6 @@
     enabled: false
   become: true
 
-- name: Ensure endlessh is absent
-  apt:
-    name: endlessh
-    state: absent
-  become: true
-
-- name: Ensure `/etc/endlessh/` is absent
-  file:
-    state: absent
-    path: /etc/endlessh/
-  become: true
-
 - name: Ensure that `/etc/systemd/system/endlessh.service` is absent
   file:
     state: absent
@@ -34,6 +22,24 @@
   notify:
     - handler-reload-systemd-daemon (trallnag.endlessh)
     - handler-systemd-reset-failed (trallnag.endlessh)
+
+- name: Ensure `/etc/init.d/endlessh` is absent
+  file:
+    state: absent
+    path: /etc/init.d/endlessh
+  become: true
+
+- name: Ensure `/etc/endlessh/` is absent
+  file:
+    state: absent
+    path: /etc/endlessh/
+  become: true
+
+- name: Ensure endlessh is absent
+  apt:
+    name: endlessh
+    state: absent
+  become: true
 
 - name: Flush handlers
   meta: flush_handlers
