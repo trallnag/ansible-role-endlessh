@@ -9,7 +9,7 @@
     state: restarted
   become: true
 
-- name: Reset failed
+- name: handler-systemd-reset-failed (trallnag.endlessh)
   command:
     cmd: systemctl reset-failed
   tags: ['skip_ansible_lint']
