@@ -21,29 +21,19 @@
   file:
     state: absent
     path: /etc/systemd/system/endlessh.service
-  register: task_remove_etc
   become: true
+  notify:
+    - handler-reload-systemd-daemon (trallnag.endlessh)
+    - handler-systemd-reset-failed (trallnag.endlessh)
 
 - name: Ensure that `/usr/lib/systemd/system/endlessh.service` is absent
   file:
     state: absent
     path: /usr/lib/systemd/system/endlessh.service
-  register: task_remove_lib
   become: true
+  notify:
+    - handler-reload-systemd-daemon (trallnag.endlessh)
+    - handler-systemd-reset-failed (trallnag.endlessh)
 
-- name: Reload daemon
-  systemd:
-    daemon_reload: true
-  when: task_remove_etc.changed or task_remove_lib.changed
-  tags: ['skip_ansible_lint']
-  register: task_reload
-  become: true
-
-- name: Reset failed
-  shell: |
-    alias blub=systemctl
-    blub reset-failed
-  register: task_setcap
-  when: task_remove_etc.changed or task_remove_lib.changed
-  tags: ['skip_ansible_lint']
-  become: true
+- name: Flush handlers
+  meta: flush_handlers

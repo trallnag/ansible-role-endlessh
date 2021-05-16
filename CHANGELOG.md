@@ -9,7 +9,10 @@ specification.
 
 ## Unreleased
 
-* Nothing
+## Changed
+
+* Improved docs.
+* Moved a few tasks to handlers.
 
 ## [1.0.1] 2021-05-16
 
