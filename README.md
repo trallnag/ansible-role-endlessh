@@ -17,7 +17,7 @@ Available on [Ansible Galaxy](https://galaxy.ansible.com/trallnag/endlessh).
 ## Requirements
 
 * Ubuntu only. Only tested on "vanilla" Ubuntu server starting with 20.04.
-* Systemd should be more or less vanilla. Systemd must be used. 
+* System should be more or less vanilla. Systemd must be used. 
 
 ## Role Variables
 
