@@ -11,6 +11,13 @@ specification.
 
 * Nothing
 
+## [1.1.1] 2021-05-17
+
+## Changed
+
+* Replaced use of systemd module with shell script to stop and disable endlessh
+  service if the service exists. The module fails if the service does not exist.
+
 ## [1.1.0] 2021-05-17
 
 ## Added

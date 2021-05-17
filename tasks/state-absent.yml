@@ -1,8 +1,33 @@
-- name: Stop and disable the systemd endlessh service
-  systemd:
+- name: Ensure endlessh is absent and purged
+  apt:
     name: endlessh
-    state: stopped
-    enabled: false
+    state: absent
+    purge: true
+  become: true
+
+- name: Ensure systemd endlessh.service is stopped and disabled if exists
+  shell: |
+    set -o pipefail
+
+    service=endlessh.service
+
+    if systemctl list-unit-files | grep -q "^$service"
+    then
+      systemctl stop $service
+      systemctl disable $service
+
+      if ! systemctl list-unit-files | grep -q "^$service"
+      then
+        echo status=changed
+      else
+        echo status=failed
+      fi
+    fi
+  args:
+    executable: /bin/bash
+  register: task
+  changed_when: "'status=changed' in task.stdout"
+  failed_when: "'status=failed' in task.stdout"
   become: true
 
 - name: Ensure that `/etc/systemd/system/endlessh.service` is absent
@@ -34,12 +59,3 @@
     state: absent
     path: /etc/endlessh/
   become: true
-
-- name: Ensure endlessh is absent
-  apt:
-    name: endlessh
-    state: absent
-  become: true
-
-- name: Flush handlers
-  meta: flush_handlers
