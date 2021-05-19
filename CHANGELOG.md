@@ -9,6 +9,10 @@ specification.
 
 ## Unreleased
 
+* Nothing
+
+## [2.0.0] 2021-05-19
+
 ### Added
 
 * Asserts that test input.
