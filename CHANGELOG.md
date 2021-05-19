@@ -11,6 +11,10 @@ specification.
 
 * Nothing
 
+### Changed
+
+* **BREAKING CHANGE**: Removed absent feature.
+
 ## [1.1.1] 2021-05-17
 
 ## Changed

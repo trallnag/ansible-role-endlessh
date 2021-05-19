@@ -1,1 +1,86 @@
-- import_tasks: state-{{ (state | lower) | default('present') }}.yml
+- name: Ensure endlessh is present
+  apt:
+    name: endlessh
+    state: present
+  become: true
+
+- name: Start and enable the systemd service
+  systemd:
+    name: endlessh
+    state: started
+    enabled: true
+  become: true
+
+- name: Allow endlessh to bind to port 22
+  shell: |
+    set -o pipefail
+
+    file=/usr/bin/endlessh
+
+    if setcap -v 'cap_net_bind_service=+ep' $file | grep -q differs
+    then
+      setcap 'cap_net_bind_service=+ep' /usr/bin/endlessh
+
+      if setcap -v 'cap_net_bind_service=+ep' $file | grep -q OK
+      then
+        echo status=changed
+      else
+        echo status=failed
+      fi
+    fi
+
+    setcap -v 'cap_net_bind_service=+ep' $file
+  args:
+    executable: /bin/bash
+  register: task_setcap
+  changed_when: "'status=changed' in task_setcap.stdout"
+  failed_when: "'status=failed' in task_setcap.stdout"
+  become: true
+  notify:
+    - handler-reload-systemd-daemon (trallnag.endlessh)
+    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+
+- name: Debug
+  debug:
+    var: task_setcap.stdout_lines
+
+- name: Place the config file
+  template:
+    src: "{{ role_path }}/templates/config"
+    dest: /etc/endlessh/config
+    owner: root
+    group: root
+    mode: "0655"
+  become: true
+  notify:
+    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+
+- name: Place the service file for systemd
+  copy:
+    src: "{{ role_path }}/files/endlessh.service"
+    dest: /etc/systemd/system/endlessh.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  notify:
+    - handler-reload-systemd-daemon (trallnag.endlessh)
+    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Test that port is open and used by endlessh
+  shell: |
+    set -o pipefail
+    ss -tulpn | grep :{{ listen_port }}
+    if ! ss -tulpn | grep :{{ listen_port }} | grep -q endlessh
+    then
+      echo status=failed
+    fi
+  args:
+    executable: /bin/bash
+  register: task_setcap
+  changed_when: "'status=changed' in task_setcap.stdout"
+  failed_when: "'status=failed' in task_setcap.stdout"
+  become: true
