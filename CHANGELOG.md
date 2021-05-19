@@ -13,6 +13,7 @@ specification.
 
 * **BREAKING CHANGE**: Removed absent feature.
 * **BREAKING CHANGE**: Prefix all input variables with `endlessh_`.
+* Switched license to Apache.
 
 ## [1.1.1] 2021-05-17
 

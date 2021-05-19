@@ -1,13 +1,27 @@
 galaxy_info:
-  role_name: endlessh
   author: Tim Schwenke
-  description: Setup Endlessh
-
-  license: MIT
-
-  min_ansible_version: 2.5
-
+  namespace: trallnag
+  role_name: endlessh
+  description: Install and configure Endlessh SSH tarpit.
+  license: Apache-2.0
+  company: none
+  min_ansible_version: 2.3
+  
   platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
     - name: Ubuntu
       versions:
         - all
+
+  galaxy_tags:
+    - ssh
+
+dependencies: []
