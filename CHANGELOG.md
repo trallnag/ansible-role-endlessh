@@ -9,11 +9,10 @@ specification.
 
 ## Unreleased
 
-* Nothing
-
 ### Changed
 
 * **BREAKING CHANGE**: Removed absent feature.
+* **BREAKING CHANGE**: Prefix all input variables with `endlessh_`.
 
 ## [1.1.1] 2021-05-17
 

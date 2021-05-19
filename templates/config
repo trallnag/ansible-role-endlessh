@@ -1,27 +1,27 @@
 # The port on which to listen for new SSH connections.
-Port {{ listen_port }}
+Port {{ endlessh_listen_port }}
 
 # The endless banner is sent one line at a time. This is the delay
 # in milliseconds between individual lines.
-Delay {{ delay_milliseconds }}
+Delay {{ endlessh_delay_milliseconds }}
 
 # The length of each line is randomized. This controls the maximum
 # length of each line. Shorter lines may keep clients on for longer if
 # they give up after a certain number of bytes.
-MaxLineLength {{ max_line_length }}
+MaxLineLength {{ endlessh_max_line_length }}
 
 # Maximum number of connections to accept at a time. Connections beyond
 # this are not immediately rejected, but will wait in the queue.
-MaxClients {{ max_clients }}
+MaxClients {{ endlessh_max_clients }}
 
 # Set the detail level for the log.
 #   0 = Quiet
 #   1 = Standard, useful log messages
 #   2 = Very noisy debugging information
-LogLevel {{ log_level }}
+LogLevel {{ endlessh_log_level }}
 
 # Set the family of the listening socket
 #   0 = Use IPv4 Mapped IPv6 (Both v4 and v6, default)
 #   4 = Use IPv4 only
 #   6 = Use IPv6 only
-BindFamily {{ bind_family }}
+BindFamily {{ endlessh_bind_family }}

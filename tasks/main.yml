@@ -73,8 +73,8 @@
 - name: Test that port is open and used by endlessh
   shell: |
     set -o pipefail
-    ss -tulpn | grep :{{ listen_port }}
-    if ! ss -tulpn | grep :{{ listen_port }} | grep -q endlessh
+    ss -tulpn | grep :{{ endlessh_listen_port }}
+    if ! ss -tulpn | grep :{{ endlessh_listen_port }} | grep -q endlessh
     then
       echo status=failed
     fi
