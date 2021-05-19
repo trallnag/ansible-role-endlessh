@@ -11,6 +11,13 @@ specification.
 
 * Nothing
 
+## [2.0.1] 2021-05-19
+
+### Changed
+
+* Replaced shell task with capabilties community module to set the flag that
+  allows endlessh to listen on port 22.
+
 ## [2.0.0] 2021-05-19
 
 ### Added

@@ -16,38 +16,15 @@
     enabled: true
   become: true
 
-- name: Allow endlessh to bind to port 22
-  shell: |
-    set -o pipefail
-
-    file=/usr/bin/endlessh
-
-    if setcap -v 'cap_net_bind_service=+ep' $file | grep -q differs
-    then
-      setcap 'cap_net_bind_service=+ep' $file
-
-      if setcap -v 'cap_net_bind_service=+ep' $file | grep -q OK
-      then
-        echo status=changed
-      else
-        echo status=failed
-      fi
-    fi
-
-    setcap -v 'cap_net_bind_service=+ep' $file
-  args:
-    executable: /bin/bash
-  register: task_setcap
-  changed_when: "'status=changed' in task_setcap.stdout"
-  failed_when: "'status=failed' in task_setcap.stdout"
+- name: Set `cap_net_bind_service+ep` on `/usr/bin/endlessh`
+  community.general.capabilities:
+    path: /usr/bin/endlessh
+    capability: cap_net_bind_service+ep
+    state: present
   become: true
   notify:
     - handler-reload-systemd-daemon (trallnag.endlessh)
     - handler-restart-endlessh-systemd-service (trallnag.endlessh)
-
-- name: Debug
-  debug:
-    var: task_setcap.stdout_lines
 
 - name: Place the config file
   template:
