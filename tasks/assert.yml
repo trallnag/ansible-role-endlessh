@@ -1,0 +1,41 @@
+- name: Test if `endlessh_listen_port` is set correctly
+  assert:
+    that:
+      - endlessh_listen_port is defined
+      - endlessh_listen_port is number
+    quiet: true
+
+- name: Test if `endlessh_delay_milliseconds` is set correctly
+  assert:
+    that:
+      - endlessh_delay_milliseconds is defined
+      - endlessh_delay_milliseconds is number
+    quiet: true
+
+- name: Test if `endlessh_max_line_length` is set correctly
+  assert:
+    that:
+      - endlessh_max_line_length is defined
+      - endlessh_max_line_length is number
+    quiet: true
+
+- name: Test if `endlessh_max_clients` is set correctly
+  assert:
+    that:
+      - endlessh_max_clients is defined
+      - endlessh_max_clients is number
+    quiet: true
+
+- name: Test if `endlessh_log_level` is set correctly
+  assert:
+    that:
+      - endlessh_log_level is defined
+      - endlessh_log_level is number
+    quiet: true
+
+- name: Test if `endlessh_bind_family` is set correctly
+  assert:
+    that:
+      - endlessh_bind_family is defined
+      - endlessh_bind_family is number
+    quiet: true

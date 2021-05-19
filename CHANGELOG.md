@@ -9,6 +9,10 @@ specification.
 
 ## Unreleased
 
+### Added
+
+* Asserts that test input.
+
 ### Changed
 
 * **BREAKING CHANGE**: Removed absent feature.

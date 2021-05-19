@@ -1,10 +1,15 @@
+- name: Import assert.yml
+  import_tasks: assert.yml
+  run_once: true
+  delegate_to: localhost
+
 - name: Ensure endlessh is present
-  apt:
+  package:
     name: endlessh
     state: present
   become: true
 
-- name: Start and enable the systemd service
+- name: Ensure systemd endlessh.service is enabled and started
   systemd:
     name: endlessh
     state: started
@@ -19,7 +24,7 @@
 
     if setcap -v 'cap_net_bind_service=+ep' $file | grep -q differs
     then
-      setcap 'cap_net_bind_service=+ep' /usr/bin/endlessh
+      setcap 'cap_net_bind_service=+ep' $file
 
       if setcap -v 'cap_net_bind_service=+ep' $file | grep -q OK
       then
@@ -70,7 +75,7 @@
 - name: Flush handlers
   meta: flush_handlers
 
-- name: Test that port is open and used by endlessh
+- name: Test if port is open and used by endlessh
   shell: |
     set -o pipefail
     ss -tulpn | grep :{{ endlessh_listen_port }}
