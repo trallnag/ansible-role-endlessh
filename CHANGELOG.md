@@ -9,6 +9,10 @@ specification.
 
 ## Unreleased
 
+* Nothing
+
+## [2.0.2] 2021-06-03
+
 ### Added
 
 * `DEVELOPMENT.md` to gather infos about development.
