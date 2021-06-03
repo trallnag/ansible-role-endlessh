@@ -9,6 +9,10 @@ specification.
 
 ## Unreleased
 
+### Added
+
+* `DEVELOPMENT.md` to gather infos about development.
+
 ### Changed
 
 * Switched to argument spec from assert file. Only supported starting with
