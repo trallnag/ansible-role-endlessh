@@ -1,8 +1,4 @@
-- name: Import assert.yml
-  import_tasks: assert.yml
-  run_once: true
-  delegate_to: localhost
-
+---
 - name: Ensure endlessh is present
   package:
     name: endlessh

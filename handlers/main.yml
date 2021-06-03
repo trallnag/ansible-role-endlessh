@@ -1,3 +1,4 @@
+---
 - name: handler-reload-systemd-daemon (trallnag.endlessh)
   systemd:
     daemon_reload: true
