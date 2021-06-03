@@ -9,7 +9,9 @@ specification.
 
 ## Unreleased
 
-* Nothing
+### Changed
+
+* Removed `---` from YAML files.
 
 ## [2.0.2] 2021-06-03
 

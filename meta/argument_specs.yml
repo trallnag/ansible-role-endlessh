@@ -1,4 +1,3 @@
----
 argument_specs:
   main:
     short_description: The main entry point for the "{{ role_name }}" role.
