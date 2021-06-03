@@ -14,6 +14,7 @@ specification.
 * Switched to argument spec from assert file. Only supported starting with
   ansible-core 2.11. For more information, see here:
   <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-argument-validation>.
+* Simplified calling of handlers.
 
 ## [2.0.1] 2021-05-19
 

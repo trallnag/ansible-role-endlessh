@@ -1,17 +1,11 @@
 ---
-- name: handler-reload-systemd-daemon (trallnag.endlessh)
+- name: Reload systemd daemon
   systemd:
     daemon_reload: true
   become: true
 
-- name: handler-restart-endlessh-systemd-service (trallnag.endlessh)
+- name: Restart endlessh systemd service
   systemd:
     name: endlessh
     state: restarted
-  become: true
-
-- name: handler-systemd-reset-failed (trallnag.endlessh)
-  command:
-    cmd: systemctl reset-failed
-  tags: ['skip_ansible_lint']
   become: true

@@ -19,8 +19,8 @@
     state: present
   become: true
   notify:
-    - handler-reload-systemd-daemon (trallnag.endlessh)
-    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+    - "{{ role_name }} : Reload systemd daemon"
+    - "{{ role_name }} : Restart endlessh systemd service"
 
 - name: Place the config file
   template:
@@ -31,7 +31,7 @@
     mode: "0655"
   become: true
   notify:
-    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+    - "{{ role_name }} : Restart endlessh systemd service"
 
 - name: Place the service file for systemd
   copy:
@@ -42,8 +42,8 @@
     mode: "0644"
   become: true
   notify:
-    - handler-reload-systemd-daemon (trallnag.endlessh)
-    - handler-restart-endlessh-systemd-service (trallnag.endlessh)
+    - "{{ role_name }} : Reload systemd daemon"
+    - "{{ role_name }} : Restart endlessh systemd service"
 
 - name: Flush handlers
   meta: flush_handlers
