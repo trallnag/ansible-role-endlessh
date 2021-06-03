@@ -15,6 +15,7 @@ specification.
   ansible-core 2.11. For more information, see here:
   <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-argument-validation>.
 * Simplified calling of handlers.
+* Simplified error handling in shell task.
 
 ## [2.0.1] 2021-05-19
 

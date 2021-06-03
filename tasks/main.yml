@@ -50,15 +50,14 @@
 
 - name: Test if port is open and used by endlessh
   shell: |
-    set -o pipefail
+    set -euxo pipefail
     ss -tulpn | grep :{{ endlessh_listen_port }}
     if ! ss -tulpn | grep :{{ endlessh_listen_port }} | grep -q endlessh
     then
-      echo status=failed
+      exit 1
     fi
   args:
     executable: /bin/bash
   register: task_setcap
-  changed_when: "'status=changed' in task_setcap.stdout"
-  failed_when: "'status=failed' in task_setcap.stdout"
+  changed_when: false
   become: true
