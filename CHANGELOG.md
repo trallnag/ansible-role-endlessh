@@ -9,9 +9,26 @@ specification.
 
 ## Unreleased
 
+* Nothing
+
+## [2.1.0] 2021-06-24
+
+### Fixed
+
+* Replaced setcap `cap_net_bind_service+ep` with `cap_net_bind_service=ep`. For
+  some reason with `+ep` always changed status.
+
+### Added
+
+* Symlink `/usr/local/bin/endlessh -> /usr/bin/endlessh*` because this the
+  path used in official service file.
+
 ### Changed
 
 * Removed `---` from YAML files.
+* Misc documentation.
+* Copy official service file from
+  <https://github.com/skeeto/endlessh/blob/master/util/endlessh.service>
 
 ## [2.0.2] 2021-06-03
 

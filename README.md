@@ -85,7 +85,11 @@ endlessh_bind_family:
 
 ## Special Requirements
 
-None.
+```yaml
+collections:
+  - name: community.general
+    version: ">= 3.2.0"
+```
 
 ## Special Dependencies
 

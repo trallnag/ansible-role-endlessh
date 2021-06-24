@@ -7,7 +7,7 @@ Requires=network-online.target
 Type=simple
 Restart=always
 RestartSec=30sec
-ExecStart=/usr/bin/endlessh
+ExecStart=/usr/local/bin/endlessh
 KillSignal=SIGTERM
 
 # Stop trying to restart the service if it restarts too many times in a row
@@ -24,7 +24,13 @@ ProtectSystem=full
 ProtectHome=true
 InaccessiblePaths=/run /var
 
+## If you want Endlessh to bind on ports < 1024
+## 1) run: 
+##     setcap 'cap_net_bind_service=+ep' /usr/local/bin/endlessh
+## 2) uncomment following line
 AmbientCapabilities=CAP_NET_BIND_SERVICE
+## 3) comment following line
+#PrivateUsers=true
 
 NoNewPrivileges=true
 ConfigurationDirectory=endlessh

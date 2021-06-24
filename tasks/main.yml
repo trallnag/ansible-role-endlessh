@@ -4,6 +4,13 @@
     state: present
   become: true
 
+- name: Create a symbolic link from `/usr/local/bin/endlessh` to `/usr/bin/endlessh`
+  ansible.builtin.file:
+    src: /usr/bin/endlessh
+    dest: /usr/local/bin/endlessh
+    state: link
+  become: true
+
 - name: Ensure systemd endlessh.service is enabled and started
   systemd:
     name: endlessh
@@ -14,7 +21,7 @@
 - name: Set `cap_net_bind_service+ep` on `/usr/bin/endlessh`
   community.general.capabilities:
     path: /usr/bin/endlessh
-    capability: cap_net_bind_service+ep
+    capability: cap_net_bind_service=ep
     state: present
   become: true
   notify:
