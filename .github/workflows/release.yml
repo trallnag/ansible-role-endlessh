@@ -10,7 +10,7 @@ jobs:
   gitub-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Extract release notes
         id: extract-release-notes
@@ -37,7 +37,7 @@ jobs:
   ansible-galaxy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: robertdebock/galaxy-action@1.1.1
         with:
           galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
